@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"
+        integrity="sha512-xgIrH5DRuEOcZK5cPtVXx/WSp5DTir2JNcKE5ahV2u51NCTD9UDxbQgZHYHVBlPc4H8tug6BZTYIl2RdA/X0Vg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .weather-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #92c8e7;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .weather-card .weather-Icon,
+    .weather-card .box,
+    .weather-card .Info,
+    .weather-card .temp {
+        margin-bottom: 20px;
+    }
+
+    .street-icon {
+        margin-right: 10px;
+    }
+
+    .fa-sun {
+        font-size: 50px;
+        color: #ebda42;
+    }
+
+    .detailsInfo {
+        color: #857c7c;
+    }
+
+    .fa-street-view {
+        animation: rotates 3s linear infinite alternate;
+    }
+
+    .fa-sun {
+        animation: fas-anime 3s linear infinite alternate;
+
+    }
+
+    @keyframes rotates {
+        from {
+            transform: translateX(-0.5rem);
+        }
+
+        to {
+            transform: translateX(0.5rem);
+
+        }
+    }
+
+    @keyframes fas-anime {
+        from {
+            transform: scale(0.8);
+        }
+
+        to {
+            transform: scale(1.5);
+
+        }
+    }
+</style>
+
+<body>
+    <div class="weather-card">
+        <div class="weather-Icon">
+            <i class="fa-solid fa-sun"></i>
+        </div>
+        <div class="Info">
+            <h2 class="location"> <i class="fa-solid fa-street-view street-icon"></i>{%location%} , {%countryName%}</h2>
+            <div>
+                <p id="date"></p>
+            </div>
+        </div>
+        <div class="temp">
+            <h2 class="tempreture"> {%temp%} &deg;C </h2>
+            <div>
+                <p class=""> Min {%mintemp%} &deg;C | Max {%maxtemp%} &deg;C</p>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        const currentDate = document.getElementById("date");
+        var currentDay = () => {
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var day = new Date();
+            return weekday[day.getDay()];
+        }
+        currentDay();
+        var currentMonthDateTime = () => {
+            const monthTime = new Date();
+            console.log(monthTime.getHours())
+            const monthday = ["Jan", "Feb", "March", "April", "May", "Jume", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const monthName = monthday[monthTime.getMonth()];
+            const date = monthTime.getDate();
+            console.log("month date", monthName + ":" + date);
+            var hours = monthTime.getHours();
+            var minute = monthTime.getMinutes();
+            var hourStatus;
+            if (0 < hours <= 12) {
+                hourStatus = "AM";
+            }
+            if (hours > 12) {
+                hourStatus = "PM";
+            }
+            return ` ${monthName} ${date} | ${hours} : ${minute} ${hourStatus}`;
+        }
+
+        currentMonthDateTime();
+        currentDate.innerHTML = currentDay() + " | " + currentMonthDateTime();
+
+
+    </script>
+</body>
+
+</html>
